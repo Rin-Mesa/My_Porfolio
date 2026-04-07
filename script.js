@@ -1,3 +1,24 @@
+// ===== THEME TOGGLE =====
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('portfolio-theme');
+if (savedTheme === 'light') {
+    body.classList.add('light-mode');
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('light-mode');
+    
+    // Save preference
+    if (body.classList.contains('light-mode')) {
+        localStorage.setItem('portfolio-theme', 'light');
+    } else {
+        localStorage.setItem('portfolio-theme', 'dark');
+    }
+});
+
 // ===== NAVIGATION =====
 
 // Active Navigation link on scroll
