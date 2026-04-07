@@ -502,7 +502,7 @@ section {
 /* ===== JOURNEY SECTION ===== */
 .journey-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
 }
 
@@ -517,6 +517,8 @@ section {
 .timeline {
     position: relative;
     padding-left: 1.5rem;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .timeline::before {
