@@ -201,6 +201,23 @@ document.addEventListener('mouseleave', () => {
 const contactForm = document.getElementById('contact-form');
 const submitBtn = document.getElementById('submit-btn');
 
+// Message character counter
+const messageInput = document.getElementById('message');
+const charCounter = document.querySelector('.char-counter');
+
+if (messageInput && charCounter) {
+    messageInput.addEventListener('input', () => {
+        const currentLength = messageInput.value.length;
+        charCounter.textContent = `${currentLength} / 500`;
+        
+        if (currentLength >= 500) {
+            charCounter.style.color = 'hsl(0, 80%, 50%)';
+        } else {
+            charCounter.style.color = '';
+        }
+    });
+}
+
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -223,18 +240,30 @@ if (contactForm) {
         // Success state
         const btnText = submitBtn.querySelector('.btn-text');
         const btnIcon = submitBtn.querySelector('.btn-icon');
+        const formMessage = document.getElementById('form-message');
+        
         btnText.textContent = 'Sent!';
         btnIcon.className = 'fas fa-check btn-icon';
         submitBtn.style.background = 'linear-gradient(135deg, hsl(140, 70%, 50%), hsl(160, 80%, 45%))';
         submitBtn.disabled = true;
+        
+        if (formMessage) {
+            formMessage.textContent = 'Thank you for your message! I will get back to you soon.';
+            formMessage.className = 'form-message success';
+        }
 
         setTimeout(() => {
             contactForm.reset();
-            btnText.textContent = 'Send';
+            btnText.textContent = 'Send Message';
             btnIcon.className = 'fas fa-paper-plane btn-icon';
             submitBtn.style.background = '';
             submitBtn.disabled = false;
-        }, 3000);
+            
+            if (formMessage) {
+                formMessage.className = 'form-message';
+                formMessage.textContent = '';
+            }
+        }, 4000);
     });
 }
 
