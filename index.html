@@ -43,6 +43,16 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-particles">
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-particle"></div>
+            <div class="hero-shape"></div>
+            <div class="hero-shape"></div>
+        </div>
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
@@ -79,6 +89,34 @@
     </section>
 
     <!-- About Section -->
+    <!-- Stats Counters -->
+    <section class="stats-section" id="stats">
+        <div class="section-container">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <div class="stat-icon"><i class="fas fa-code"></i></div>
+                    <div class="stat-number" data-target="10">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-label">Years Learning</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Team Projects</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-icon"><i class="fas fa-tools"></i></div>
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Tools Learned</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="about">
         <div class="section-container">
             <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
@@ -97,6 +135,24 @@
                         beautiful, user-friendly websites and applications. With a solid foundation in HTML, CSS, and
                         JavaScript, I enjoy bringing ideas to life through clean code and intuitive design.
                     </p>
+                    <div class="about-info-grid">
+                        <div class="about-info-item">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">RIN Mesa</span>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">mesa.rin@student.passerellesnumeriques.org</span>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">+855 96-8558-962</span>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">Phnom Penh, Cambodia</span>
+                        </div>
+                    </div>
                     <a href="https://t.me/Rinmesa" class="btn btn-primary">Contact Me</a>
                 </div>
             </div>
@@ -483,45 +539,83 @@
             <h2 class="section-title">My <span class="gradient-text">Projects</span></h2>
             <div class="projects-grid">
                 <div class="project-card">
-                    <img src="images/CV1.png" alt="Project 1" class="project-image">
+                    <div class="project-image-wrapper">
+                        <img src="images/CV1.png" alt="Restaurant Management System" class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-tech-tags">
+                                <span class="tech-tag">Vue 3</span>
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">Redis</span>
+                            </div>
+                            <div class="project-overlay-links">
+                                <a href="https://github.com/phea-ly/MlupDong-RestaurantsManagementSystem" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-content">
                         <h3 class="project-title">Restaurant Management System</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/phea-ly/MlupDong-RestaurantsManagementSystem" class="social-icon"
-                                aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        </div>
+                        <p class="project-description">QR ordering, real-time KDS, role-based dashboards</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="images/E-Commerce.png" alt="Project 2" class="project-image">
+                    <div class="project-image-wrapper">
+                        <img src="images/E-Commerce.png" alt="E-Commerce Website" class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-tech-tags">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <div class="project-overlay-links">
+                                <a href="https://github.com/Rin-Mesa/E-Commerce-website" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="https://e-commerce-website-omega-topaz.vercel.app/" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-content">
                         <h3 class="project-title">E-Commerce Website</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/Rin-Mesa/E-Commerce-website" class="social-icon" aria-label="GitHub"><i
-                                    class="fab fa-github"></i></a>
-                            <a href="https://e-commerce-website-omega-topaz.vercel.app/"><button class="btn btn-primary ">Live Demo</button></a>
-                        </div>
+                        <p class="project-description">Responsive plant shop with cart functionality</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="images/Design.png" alt="Project 3" class="project-image">
+                    <div class="project-image-wrapper">
+                        <img src="images/Design.png" alt="Pet Selling App Prototype" class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-tech-tags">
+                                <span class="tech-tag">Figma</span>
+                                <span class="tech-tag">UI/UX</span>
+                                <span class="tech-tag">Prototype</span>
+                            </div>
+                            <div class="project-overlay-links">
+                                <a href="https://www.figma.com/design/JLTCx0axdKRBhQ3LY6uAjF/Untitled?node-id=0-1&p=f&t=o7RaisYPMzBw1AJ0-0" aria-label="Figma"><i class="fab fa-figma"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-content">
                         <h3 class="project-title">Pet Selling Mobile App Prototype</h3>
-                        <div class="project-links">
-                            <a href="https://www.figma.com/design/JLTCx0axdKRBhQ3LY6uAjF/Untitled?node-id=0-1&p=f&t=o7RaisYPMzBw1AJ0-0"
-                                class="social-icon" aria-label="Figma"><i class="fab fa-figma"></i></a>
-                        </div>
+                        <p class="project-description">High-fidelity prototype with complete user flows</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="images/Inventory.png" alt="Project 4" class="project-image">
+                    <div class="project-image-wrapper">
+                        <img src="images/Inventory.png" alt="Inventory Management System" class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-tech-tags">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                            </div>
+                            <div class="project-overlay-links">
+                                <a href="https://github.com/ChandySrin/inventory_app" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="https://inventory-projectjavascript.netlify.app/" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-content">
                         <h3 class="project-title">Inventory Management System</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/ChandySrin/inventory_app"
-                                class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            <a href="https://inventory-projectjavascript.netlify.app/"><button class="btn btn-primary">Live Demo</button></a>
-                        </div>
+                        <p class="project-description">Full CRUD inventory tracking application</p>
                     </div>
                 </div>
             </div>
@@ -534,7 +628,7 @@
             <!-- Col 1: Brand + Social -->
             <div class="footer-brand">
                 <h1>Mesa Rin</h1>
-                <p class="footer-tagline">Social media</p>
+                <p class="footer-tagline">Building digital experiences with passion and purpose.</p>
                 <div class="footer-social">
                     <a href="https://www.facebook.com/mesa.kh.585?mibextid=ZbWKwL" aria-label="Facebook"><i
                             class="fab fa-facebook"></i></a>
@@ -565,6 +659,9 @@
                 </p>
                 <p><i class="fas fa-globe-asia"></i>Cambodia</p>
             </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="footer-year"></span> Mesa Rin. Crafted with <i class="fas fa-heart" style="color: var(--primary-cyan);"></i> and determination.</p>
         </div>
     </footer>
 

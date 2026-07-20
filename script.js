@@ -19,13 +19,39 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
-// ===== NAVIGATION =====
+// ===== SCROLL PROGRESS BAR =====
+const scrollProgress = document.getElementById('scroll-progress');
 
-// Active Navigation link on scroll
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    scrollProgress.style.width = scrollPercent + '%';
+});
+
+// ===== BACK TO TOP BUTTON =====
+const backToTop = document.getElementById('back-to-top');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ===== NAVIGATION =====
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.nav-link');
 const navbar = document.querySelector('.navbar');
 
+// Active Navigation link on scroll
 window.addEventListener('scroll', () => {
     // Navbar shadow on scroll
     if (window.scrollY > 80) {
@@ -50,6 +76,12 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// Hamburger Menu Toggle
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+});
+
 // Smooth Scroll for nav links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -62,15 +94,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             hamburger.classList.remove('open');
         }
     });
-});
-
-// Hamburger Menu Toggle
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('nav-menu');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navMenu.classList.toggle('open');
 });
 
 // ===== FOOTER YEAR =====
@@ -135,6 +158,45 @@ if (skillsSection) {
     skillObserver.observe(skillsSection);
 }
 
+// ===== STATS COUNTER ANIMATION =====
+function animateCounters() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    statNumbers.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        const duration = 2000; // ms
+        const step = Math.max(1, Math.floor(target / 60));
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                stat.textContent = current;
+                requestAnimationFrame(() => setTimeout(updateCounter, 30));
+            } else {
+                stat.textContent = target + '+';
+            }
+        };
+        
+        updateCounter();
+    });
+}
+
+// Observe stats section for counter animation
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounters();
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+const statsSection = document.querySelector('.stats-section');
+if (statsSection) {
+    statsObserver.observe(statsSection);
+}
+
 // ===== SCROLL REVEAL ANIMATION =====
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -146,27 +208,26 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 // Reveal section titles and large containers
-document.querySelectorAll('.section-title, .about-content, .contact-form').forEach(el => {
+document.querySelectorAll('.section-title, .about-content, .stat-item').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
 });
 
-// Staggered reveal for timeline items and skill items
+// Staggered reveal for various items
 const staggerObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-            // Find index among siblings
             const siblings = Array.from(entry.target.parentElement.children);
             const index = siblings.indexOf(entry.target);
             setTimeout(() => {
                 entry.target.classList.add('visible');
-            }, index * 120);
+            }, index * 100);
             staggerObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
 
-document.querySelectorAll('.timeline-item, .skill-item').forEach(el => {
+document.querySelectorAll('.timeline-item, .skill-item, .softskill-card, .tool-item, .project-card').forEach(el => {
     staggerObserver.observe(el);
 });
 
