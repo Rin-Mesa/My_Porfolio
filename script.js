@@ -81,7 +81,7 @@ if (footerYear) {
 
 // ===== TYPING EFFECT =====
 const typingText = document.getElementById('typing-text');
-const phrases = ['Web Development', 'Frontend Developer','Backend Developer', 'UI/UX Designer', 'DevOps', 'Quality Assurance (QA)'];
+const phrases = ['Web Development', 'Frontend Developer','Backend Developer','Data Engineering', 'UI/UX Designer', 'DevOps', 'Quality Assurance (QA)'];
 let phraseIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
