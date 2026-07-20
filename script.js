@@ -227,9 +227,139 @@ const staggerObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
 
-document.querySelectorAll('.timeline-item, .skill-item, .softskill-card, .tool-item, .project-card').forEach(el => {
+document.querySelectorAll('.timeline-item, .skill-item, .softskill-card').forEach(el => {
     staggerObserver.observe(el);
 });
+
+// ===== AUTO-SCROLL PROJECT CAROUSEL =====
+const projectsGrid = document.getElementById('projects-grid');
+const carouselDots = document.getElementById('carousel-dots');
+const prevArrow = document.querySelector('.carousel-arrow-prev');
+const nextArrow = document.querySelector('.carousel-arrow-next');
+let autoScrollInterval = null;
+let isHovering = false;
+
+function initCarousel() {
+    if (!projectsGrid) return;
+    
+    const cards = projectsGrid.querySelectorAll('.project-card');
+    if (cards.length === 0) return;
+    
+    // Create dots
+    carouselDots.innerHTML = '';
+    cards.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.classList.add('carousel-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.setAttribute('aria-label', `Go to project ${i + 1}`);
+        dot.addEventListener('click', () => {
+            scrollToCard(i);
+            resetAutoScroll();
+        });
+        carouselDots.appendChild(dot);
+    });
+    
+    // Update dots on scroll
+    projectsGrid.addEventListener('scroll', updateDots);
+    
+    // Pause on hover
+    projectsGrid.addEventListener('mouseenter', () => { isHovering = true; });
+    projectsGrid.addEventListener('mouseleave', () => { isHovering = false; });
+    
+    // Arrow navigation
+    if (prevArrow) {
+        prevArrow.addEventListener('click', () => {
+            const activeIndex = getActiveIndex();
+            const prev = (activeIndex - 1 + cards.length) % cards.length;
+            scrollToCard(prev);
+            resetAutoScroll();
+        });
+    }
+    
+    if (nextArrow) {
+        nextArrow.addEventListener('click', () => {
+            const activeIndex = getActiveIndex();
+            const next = (activeIndex + 1) % cards.length;
+            scrollToCard(next);
+            resetAutoScroll();
+        });
+    }
+    
+    // Start auto-scroll
+    startAutoScroll();
+}
+
+function getActiveIndex() {
+    const cards = projectsGrid.querySelectorAll('.project-card');
+    const containerCenter = projectsGrid.scrollLeft + projectsGrid.clientWidth / 2;
+    let closestIdx = 0;
+    let closestDist = Infinity;
+    
+    cards.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const dist = Math.abs(containerCenter - cardCenter);
+        if (dist < closestDist) {
+            closestDist = dist;
+            closestIdx = i;
+        }
+    });
+    
+    return closestIdx;
+}
+
+function scrollToCard(index) {
+    const cards = projectsGrid.querySelectorAll('.project-card');
+    if (!cards[index]) return;
+    
+    projectsGrid.scrollTo({
+        left: cards[index].offsetLeft - (projectsGrid.clientWidth - cards[index].offsetWidth) / 2,
+        behavior: 'smooth'
+    });
+}
+
+function updateDots() {
+    const dots = carouselDots.querySelectorAll('.carousel-dot');
+    const activeIndex = getActiveIndex();
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIndex);
+    });
+}
+
+function startAutoScroll() {
+    if (autoScrollInterval) clearInterval(autoScrollInterval);
+    
+    autoScrollInterval = setInterval(() => {
+        if (isHovering) return;
+        
+        const dots = carouselDots.querySelectorAll('.carousel-dot');
+        const activeIndex = getActiveIndex();
+        const nextIndex = (activeIndex + 1) % dots.length;
+        scrollToCard(nextIndex);
+    }, 4000);
+}
+
+function resetAutoScroll() {
+    if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = null;
+    }
+    startAutoScroll();
+}
+
+// Initialize carousel when projects section is visible
+const projectsSection = document.querySelector('#project');
+if (projectsSection) {
+    const carouselObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                initCarousel();
+                carouselObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    carouselObserver.observe(projectsSection);
+}
 
 // ===== CURSOR GLOW EFFECT =====
 const cursorGlow = document.createElement('div');
